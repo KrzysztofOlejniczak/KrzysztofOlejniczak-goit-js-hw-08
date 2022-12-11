@@ -7,8 +7,24 @@ const iframe = document.querySelector('#vimeo-player');
 const player = new vimeoPlayer(iframe);
 
 if (localStorage.getItem('videoplayer-current-time') !== null) {
-  console.log(localStorage.getItem('videoplayer-current-time'));
-  player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+  const savedTime = parseFloat(
+    localStorage.getItem('videoplayer-current-time')
+  );
+  console.log(`Saved time in local storage is: ${savedTime} s`);
+  player
+    .setCurrentTime(savedTime)
+    .then(function (seconds) {})
+    .catch(function (error) {
+      switch (error.name) {
+        case 'RangeError':
+          console.log(`${error}`);
+          break;
+
+        default:
+          console.log(`${error}`);
+          break;
+      }
+    });
 }
 
 const saveVideoTime = data => {

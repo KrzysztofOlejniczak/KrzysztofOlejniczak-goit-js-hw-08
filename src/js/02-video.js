@@ -25,6 +25,8 @@ if (localStorage.getItem('videoplayer-current-time') !== null) {
           break;
       }
     });
+} else {
+  console.log('There is no saved time in local storage');
 }
 
 const saveVideoTime = data => {
